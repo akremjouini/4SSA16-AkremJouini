@@ -226,4 +226,4 @@ pipeline {
 
 ## 👤 Auteur
 
-**ESPRIT — UP ASI**  
+**ESPRIT — UP ASI**  Projet DevOps 4SSA16 - Akrem Jouini - CI/CD avec Jenkins
