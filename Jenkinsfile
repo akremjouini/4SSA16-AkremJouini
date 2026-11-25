@@ -7,6 +7,7 @@ pipeline {
     environment {
         BACKEND_IMAGE  = 'akremjouini-4ssa16-gestionprojets-backend'
         FRONTEND_IMAGE = 'akremjouini-4ssa16-gestionprojets-frontend'
+        MYSQL_IMAGE    = 'akremjouini-4ssa16-gestionprojets-mysql'
     }
     stages {
         stage('Checkout') {
@@ -43,6 +44,7 @@ pipeline {
             steps {
                 sh 'docker build -t ${BACKEND_IMAGE}:latest backend'
                 sh 'docker build -t ${FRONTEND_IMAGE}:latest frontend'
+                sh 'docker build -t ${MYSQL_IMAGE}:latest mysql'
             }
         }
         stage('Push Docker Hub') {
@@ -53,6 +55,8 @@ pipeline {
                     sh 'docker tag ${FRONTEND_IMAGE}:latest $DH_USER/${FRONTEND_IMAGE}:latest'
                     sh 'docker push $DH_USER/${BACKEND_IMAGE}:latest'
                     sh 'docker push $DH_USER/${FRONTEND_IMAGE}:latest'
+                    sh 'docker tag ${MYSQL_IMAGE}:latest $DH_USER/${MYSQL_IMAGE}:latest'
+                    sh 'docker push $DH_USER/${MYSQL_IMAGE}:latest'
                 }
             }
         }

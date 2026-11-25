@@ -1,6 +1,6 @@
 services:
   mysql:
-    image: mysql:8.0
+    image: akremjouini-4ssa16-gestionprojets-mysql:latest
     container_name: mysql-gestionprojets
     environment:
       MYSQL_ROOT_PASSWORD: root
