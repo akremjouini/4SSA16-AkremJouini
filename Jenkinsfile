@@ -45,6 +45,17 @@ pipeline {
                 sh 'docker build -t ${FRONTEND_IMAGE}:latest frontend'
             }
         }
+        stage('Push Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DH_USER', passwordVariable: 'DH_TOKEN')]) {
+                    sh 'echo "$DH_TOKEN" | docker login -u "$DH_USER" --password-stdin'
+                    sh 'docker tag ${BACKEND_IMAGE}:latest $DH_USER/${BACKEND_IMAGE}:latest'
+                    sh 'docker tag ${FRONTEND_IMAGE}:latest $DH_USER/${FRONTEND_IMAGE}:latest'
+                    sh 'docker push $DH_USER/${BACKEND_IMAGE}:latest'
+                    sh 'docker push $DH_USER/${FRONTEND_IMAGE}:latest'
+                }
+            }
+        }
         stage('Deploy (docker compose)') {
             steps { sh 'docker compose up -d --force-recreate' }
         }
