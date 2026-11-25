@@ -25,7 +25,7 @@ pipeline {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQube') {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=4SSA16-AkremJouini -Dsonar.projectName=4SSA16-AkremJouini'
+                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar -Dsonar.projectKey=4SSA16-AkremJouini -Dsonar.projectName=4SSA16-AkremJouini'
                     }
                 }
             }
